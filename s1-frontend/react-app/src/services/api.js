@@ -1,5 +1,9 @@
-const COURSES_API_URL = 'http://localhost:5001';  // AI LMS Backend
-const SCHOOLS_API_URL = 'http://localhost:5000';  // MongoDB Analytics Backend
+// const COURSES_API_URL = 'http://localhost:5001';  // AI LMS Backend
+// const SCHOOLS_API_URL = 'http://localhost:5000';  // MongoDB Analytics Backend
+// ✅ Use environment variables for Vercel
+const COURSES_API_URL = process.env.REACT_APP_COURSES_API_URL || 'http://localhost:5001';
+const SCHOOLS_API_URL = process.env.REACT_APP_SCHOOLS_API_URL || 'http://localhost:5000';
+
 const API_BASE = 'http://localhost:5000/api';
 class ApiService {
   // ========== AUTHENTICATION (Port 5001) ==========
