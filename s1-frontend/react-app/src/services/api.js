@@ -1,6 +1,7 @@
 // const COURSES_API_URL = 'http://localhost:5001';  // AI LMS Backend
 // const SCHOOLS_API_URL = 'http://localhost:5000';  // MongoDB Analytics Backend
 // ✅ Use environment variables for Vercel
+
 const COURSES_API_URL = process.env.REACT_APP_AI_API_URL || 'https://ai-lms-ai.onrender.com';
 const SCHOOLS_API_URL = process.env.REACT_APP_ANALYTICS_API_URL || 'https://ai-lms-analytics.onrender.com';
 
@@ -406,23 +407,24 @@ static async getCoursesFromAnalytics() {
   // }
 
   // ========== HEALTH CHECKS ==========
-  static async checkCoursesBackend() {
-    try {
-      const response = await fetch(`${COURSES_API_URL}/health`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, status: 'unavailable' };
-    }
-  }
 
-  static async checkAnalyticsBackend() {
-    try {
-      const response = await fetch(`${SCHOOLS_API_URL}/health`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, status: 'unavailable' };
-    }
+static async checkCoursesBackend() {
+  try {
+    const response = await fetch(`${COURSES_API_URL}/api/health`);  // ✅ 添加 /api/
+    return await response.json();
+  } catch (error) {
+    return { success: false, status: 'unavailable' };
   }
+}
+
+static async checkAnalyticsBackend() {
+  try {
+    const response = await fetch(`${SCHOOLS_API_URL}/api/health`);  // ✅ 添加 /api/
+    return await response.json();
+  } catch (error) {
+    return { success: false, status: 'unavailable' };
+  }
+}
 
   // ========== TEST CONNECTIONS ==========
   static async testConnections() {
