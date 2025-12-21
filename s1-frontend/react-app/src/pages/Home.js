@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import SmartSearch from '../components/SmartSearch';
 
 function Home() {
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [aiResponse, setAiResponse] = useState(null);
   const { currentUser, isAuthenticated } = useAuth();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -101,6 +103,35 @@ const handleGetRecommendation = async () => {
       </div>
     );
   }
+
+  const handleAISearch = async (query) => {
+    try {
+      setSearchLoading(true);
+      setAiResponse('');
+
+      const aiRes = await fetch(`${process.env.REACT_APP_AI_API_URL || 'http://localhost:5001'}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: query })
+      });
+
+      const aiData = await aiRes.json();
+
+      if (aiData.success) {
+        setAiResponse(aiData.response);
+      }
+
+    } catch (error) {
+      console.error('AI Search error:', error);
+      setAiResponse(
+        'Suggested courses:\n• Web Development Fundamentals\n• Data Science with Python\n• Machine Learning Fundamentals'
+      );
+    } finally {
+      setSearchLoading(false);
+    }
+  };
+
+
 
   return (
     <div className="container mt-4">
@@ -296,46 +327,10 @@ const handleGetRecommendation = async () => {
       </div>
     </div>
   );
+
+
 }
 
-// Add this function in your Home.js
-const handleAISearch = async (query) => {
-  try {
-    setSearchLoading(true);
-    setAiResponse('');
-    
-    // Try the AI backend first (port 5001)
-    const aiResponse = await fetch('http://localhost:5001/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: query })
-    });
-    
-    const aiData = await aiResponse.json();
-    
-    if (aiData.success) {
-      setAiResponse(aiData.response);
-    }
-    
-    // Also search for courses in MongoDB (port 5000)
-    const coursesResponse = await fetch(`http://localhost:5000/api/search/courses?q=${query}`);
-    const coursesData = await coursesResponse.json();
-    
-    if (coursesData.success && coursesData.results.length > 0) {
-      // Format courses as a list
-      const coursesList = coursesData.results.map(course => 
-        `• ${course.title} (${course.level}) - ${course.description.substring(0, 100)}...`
-      ).join('\n');
-      
-      setAiResponse(prev => prev + `\n\n**Found ${coursesData.results.length} courses:**\n${coursesList}`);
-    }
-    
-  } catch (error) {
-    console.error('AI Search error:', error);
-    setAiResponse('I found these courses for you:\n• Web Development Fundamentals (Beginner)\n• Data Science with Python (Intermediate)\n• Machine Learning Fundamentals (Advanced)');
-  } finally {
-    setSearchLoading(false);
-  }
-};
+
 
 export default Home;
