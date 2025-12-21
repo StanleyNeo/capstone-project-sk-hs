@@ -58,4 +58,22 @@ git push origin main
 REACT_APP_COURSES_API_URL	你的后端URL	如 https://your-backend.railway.app
 REACT_APP_SCHOOLS_API_URL	你的后端URL	如 https://your-backend.railway.app
 
-mongodb+srv://genskneo:<db_password>@cluster0.h5dczqk.mongodb.net/?appName=Cluster0
+mongodb+srv://genskneo:rootpassword@cluster0.h5dczqk.mongodb.net/?appName=Cluster0
+
+
+# 1. 测试健康检查（已验证✅）
+curl https://ai-lms-ai.onrender.com
+
+# 2. 测试AI聊天
+curl -X POST https://ai-lms-ai.onrender.com/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message":"推荐一个适合初学者的编程课程"}'
+
+# 3. 测试AI推荐
+curl -X POST https://ai-lms-ai.onrender.com/api/ai/recommend \
+  -H "Content-Type: application/json" \
+  -d '{"interest":"web development","level":"beginner"}'
+
+# 4. 测试统计
+curl https://ai-lms-ai.onrender.com/api/ai/stats
+
