@@ -44,3 +44,18 @@ https://platform.deepseek.com/usage
 
 https://platform.deepseek.com/api_keys
 
+# 1. 确保你的前端代码已提交
+cd /d/capstone-2025/qw-capstone-project/capstone-project-sk-hs
+git add .
+git commit -m "feat: ready for Vercel deployment with env vars"
+git push origin main
+
+# 2. Vercel会自动重新部署
+# 或手动触发：Vercel Dashboard → "Redeploy"
+
+
+变量名	值	说明
+REACT_APP_COURSES_API_URL	你的后端URL	如 https://your-backend.railway.app
+REACT_APP_SCHOOLS_API_URL	你的后端URL	如 https://your-backend.railway.app
+
+mongodb+srv://genskneo:<db_password>@cluster0.h5dczqk.mongodb.net/?appName=Cluster0
