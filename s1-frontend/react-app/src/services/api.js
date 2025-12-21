@@ -1,17 +1,9 @@
 // const COURSES_API_URL = 'http://localhost:5001';  // AI LMS Backend
 // const SCHOOLS_API_URL = 'http://localhost:5000';  // MongoDB Analytics Backend
 // ✅ Use environment variables for Vercel
-const COURSES_API_URL = env.REACT_APP_AI_API_URL || 'https://ai-lms-ai.onrender.com';
-const SCHOOLS_API_URL = env.REACT_APP_ANALYTICS_API_URL || 'https://ai-lms-analytics.onrender.com';
-
-console.log("COURSES_API_URL:", COURSES_API_URL);
-console.log("SCHOOLS_API_URL:", SCHOOLS_API_URL);
-
-if (COURSES_API_URL.includes('ai-lms-ai') && SCHOOLS_API_URL.includes('ai-lms-analytics')) {
-  console.log("✅ 环境变量配置正确！");
-} else {
-  console.log("❌ 配置错误，请检查变量名匹配");
-}
+// ✅ 正确：使用 process.env.
+const COURSES_API_URL = process.env.REACT_APP_AI_API_URL || 'https://ai-lms-ai.onrender.com';
+const SCHOOLS_API_URL = process.env.REACT_APP_ANALYTICS_API_URL || 'https://ai-lms-analytics.onrender.com';
 
 const API_BASE = 'http://localhost:5000/api';
 class ApiService {
