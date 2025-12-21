@@ -1,0 +1,13 @@
+{
+  "buildCommand": "CI=false npm run build",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://ai-lms-analytics.onrender.com/api/$1"
+    },
+    {
+      "source": "/hybrid-ai/(.*)",
+      "destination": "https://ai-lms-ai.onrender.com/hybrid-ai/$1"
+    }
+  ]
+}
