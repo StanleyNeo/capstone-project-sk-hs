@@ -14,11 +14,20 @@ app.use(cors({
 app.use(express.json());
 
 // ========== ✅ MONGODB CONNECTION ==========
-mongoose.connect('mongodb://localhost:27017/lms_analytics', {
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/lms_analytics';
+
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 5000
+}).then(() => {
+  console.log('✅ MongoDB connected successfully');
+}).catch((err) => {
+  console.log('⚠️ MongoDB not available - using in-memory data');
+  // 不要退出应用，继续使用内存数据
 });
+
+
 const db = mongoose.connection;
 db.on('error', () => console.log('⚠️ MongoDB not available - using in-memory data'));
 db.once('open', () => console.log('✅ MongoDB connected to lms_analytics'));
