@@ -2,9 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-const PORT = 5000;
+//const PORT = 5000;
 
 // ========== ✅ MIDDLEWARE ==========
+// GLOBAL CORS
 app.use(cors({
   origin: [
     'http://localhost:3000',
@@ -15,6 +16,9 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
+
+// 👇 ADD THIS LINE (ONLY THIS LINE)
+app.options('*', cors());
 app.use(express.json());
 
 // ========== ✅ MONGODB CONNECTION ==========
