@@ -9,6 +9,7 @@ const hybridAIRoutes = require('./routes/hybridAIRoutes');
 const recommendationRoutes = require('./routes/recommendationRoutes');
 
 // ========== ✅ MIDDLEWARE ==========
+// GLOBAL CORS
 app.use(cors({
   origin: [
     'http://localhost:3000',
@@ -19,6 +20,9 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
+
+// 👇 ADD THIS LINE (ONLY THIS LINE)
+app.options('*', cors());
 app.use(express.json());
 
 // ========== ✅ ROUTE REGISTRATION (ORDER MATTERS!) ==========

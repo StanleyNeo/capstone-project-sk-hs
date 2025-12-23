@@ -411,15 +411,14 @@ static async getCoursesFromAnalytics() {
   // }
 
   // ========== HEALTH CHECKS ==========
-
-static async checkCoursesBackend() {
-  try {
-    const response = await fetch(`${COURSES_API_URL}/api/health`);  // ✅ 添加 /api/
-    return await response.json();
-  } catch (error) {
-    return { success: false, status: 'unavailable' };
+  static async checkCoursesBackend() {
+    try {
+      const response = await fetch(`${COURSES_API_URL}/health`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, status: 'unavailable' };
+    }
   }
-}
 
 static async checkAnalyticsBackend() {
   try {
