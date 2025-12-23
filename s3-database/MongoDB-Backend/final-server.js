@@ -6,7 +6,11 @@ const PORT = 5000;
 
 // ========== ✅ MIDDLEWARE ==========
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:3001'],
+  origin: [
+    'http://localhost:3000',
+    'https://capstone-project-sk-hs.vercel.app',
+    'https://capstone-project-sk-hs-git-main-neo-see-kwees-projects.vercel.app'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
